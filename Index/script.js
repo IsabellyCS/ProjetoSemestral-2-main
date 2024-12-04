@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-  //div final
- // Função para verificar se o elemento está visível na tela
+//div final
+// Função para verificar se o elemento está visível na tela
 function isElementInView(element) {
     const rect = element.getBoundingClientRect();
     return rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth;
@@ -92,8 +92,6 @@ window.addEventListener('scroll', handleScroll);
 // Chama a função ao carregar a página para garantir que a div apareça se já estiver visível
 window.addEventListener('load', handleScroll);
 
-
-
 // // Evento de rolagem
 window.addEventListener('scroll', handleScroll);
 
@@ -112,9 +110,8 @@ function scrollToTop() {
 function redirectToPesquisa(element) {
     // Pega o ID da div clicada
     const categoriaId = element.id;
-  
+
     // Redireciona para a página de pesquisa, passando o ID como parâmetro
     window.location.href = "../Pesquisa/pesquisa.html?categoria=" + categoriaId;
-  }
-  
-  
+}
+

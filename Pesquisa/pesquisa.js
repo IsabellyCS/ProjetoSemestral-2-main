@@ -76,15 +76,41 @@ function w3RemoveClass(element, name) {
   element.className = arr1.join(" ");
 }
 
-var btnContainer = document.getElementById("Categorias");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function () {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
+
+  // var btns = btnContainer.getElementsByClassName("btn");
+  // for (var i = 0; i < btns.length; i++) {
+  //   btns[i].addEventListener("click", function () {
+  //     var current = document.getElementsByClassName("active");
+      
+  //       current[0].className = current[0].className.replace(" active", "");
+      
+  //     this.className += " active";
+  //   });
+  // }
+
+
+ // Pega o primeiro elemento com a classe "Categorias"
+var btnContainer = document.querySelector(".Categorias"); // Usando querySelector para pegar um único elemento
+
+if (btnContainer) {
+  // Pega todos os botões dentro do contêiner
+  var btns = btnContainer.getElementsByClassName("btn");
+
+  for (var i = 0; i < btns.length; i++) {
+    // Adiciona um evento de clique em cada botão
+    btns[i].addEventListener("click", function () {
+      // Remove a classe 'active' do botão atualmente ativo
+      var current = document.getElementsByClassName("active");
+      if (current.length > 0) { // Verifica se existe algum botão com a classe 'active'
+        current[0].classList.remove("active");
+      }
+
+      // Adiciona a classe 'active' no botão clicado
+      this.classList.add("active");
+    });
+  }
 }
+
 
 // Função para destacar o botão da categoria
 function highlightCategoryButton(categoria) {
@@ -92,7 +118,6 @@ function highlightCategoryButton(categoria) {
 
   // Verifica se existem botões
   if (btns.length === 0) {
-    console.warn('Nenhum botão encontrado.');
     return;  // Retorna sem executar o restante do código
   }
 
@@ -164,65 +189,65 @@ function w3RemoveClass(element, name) {
 }
 
 // Inicialização para exibir todos os jogos
-filterSelection("all");
+// filterSelection("all");
 
-// Controle de filtros com botões
-var btnContainer = document.getElementById("Categorias");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function () {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}
+// Pega o primeiro elemento com a classe "Categorias"
+var btnContainer = document.querySelector(".Categorias"); // Usando querySelector para pegar um único elemento
 
+if (btnContainer) {
+  // Pega todos os botões dentro do contêiner
+  var btns = btnContainer.getElementsByClassName("btn");
 
-// Função para rolar até o topo
-function scrollToTop() {
-  // Adiciona a classe 'visible' para iniciar a animação
-  targetDiv.classList.add('visible');
-  
-  // Aguarda 500ms (tempo da animação) antes de rolar para o topo
-  setTimeout(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  for (var i = 0; i < btns.length; i++) {
+    // Adiciona um evento de clique em cada botão
+    btns[i].addEventListener("click", function () {
+      // Remove a classe 'active' do botão atualmente ativo
+      var current = document.getElementsByClassName("active");
+      if (current.length > 0) { // Verifica se existe algum botão com a classe 'active'
+        current[0].classList.remove("active");
+      }
+
+      // Adiciona a classe 'active' no botão clicado
+      this.classList.add("active");
     });
-  }, 500); // Espera o tempo da animação para permitir que a transição seja visível
+  }
 }
 
 // Função para verificar se o elemento está visível na tela
 function isElementInView(element) {
   const rect = element.getBoundingClientRect();
-  return rect.top < window.innerHeight && rect.bottom >= 0; // Verifica se a div está visível
+  return rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth;
 }
 
-// Espera até que o DOM seja completamente carregado antes de acessar o targetDiv
-document.addEventListener('DOMContentLoaded', function() {
-  // Alvo da div que queremos observar
-  const targetDiv = document.getElementById('targetDiv');
+function scrollToTop() {
+  window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Rolagem suave
+  });
+}
 
-  // Função para aplicar a classe 'visible' de acordo com a visibilidade
-  function handleScroll() {
+// Alvo da div
+const targetDiv = document.getElementById('targetDiv');
+
+// Função para verificar a visibilidade e aplicar ou remover a classe
+function handleScroll() {
+  // Verifica se a posição do scroll é maior que 0 (ou seja, não está no topo)
+  if (window.scrollY > 0) {
+    // Adiciona a classe para mostrar a div com animação
     if (isElementInView(targetDiv)) {
-      targetDiv.classList.add('visible'); // Adiciona a classe para mostrar a div com animação
+      targetDiv.classList.add('visible');
     } else {
-      targetDiv.classList.remove('visible'); // Remove a classe quando não estiver visível
+      targetDiv.classList.remove('visible');
     }
+  } else {
+    // Se a página estiver no topo, você pode executar um comportamento específico
+    targetDiv.classList.remove('visible');
   }
+}
 
-  // Evento de rolagem
-  window.addEventListener('scroll', handleScroll);
+// Evento de rolagem
+window.addEventListener('scroll', handleScroll);
 
-  // Chama a função ao carregar a página para garantir que a div apareça se já estiver visível
-  window.addEventListener('load', handleScroll);
-
-  // Adiciona o evento de clique na div para rolar até o topo
-  document.querySelector('.voltar').addEventListener('click', scrollToTop);
+window.addEventListener('DOMContentLoaded', () => {
+  handleScroll(); // Garante que a função seja chamada imediatamente após carregar
 });
-
-
-
-
-
